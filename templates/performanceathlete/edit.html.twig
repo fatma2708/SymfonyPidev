@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Performanceathlete{% endblock %}
+
+{% block body %}
+    <h1>Edit Performanceathlete</h1>
+
+    {{ include('performanceathlete/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_performanceathlete_index') }}">back to list</a>
+
+    {{ include('performanceathlete/_delete_form.html.twig') }}
+{% endblock %}

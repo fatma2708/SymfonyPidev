@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Performanceequipe Details{% endblock %}
+
+{% block body %}
+    <section class="panel">
+        <header class="panel-heading">
+            <h2 class="panel-title"><i class="fas fa-chart-line"></i> Performanceequipe Details</h2>
+        </header>
+        <div class="panel-body">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="fas fa-users"></i> Team Performance</h4>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th><i class="fas fa-trophy"></i> Victoires</th>
+                                <td>{{ performanceequipe.victoires }}</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-times-circle"></i> Pertes</th>
+                                <td>{{ performanceequipe.pertes }}</td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-medal"></i> Rang</th>
+                                <td>{{ performanceequipe.rang }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer text-right">
+                    <a href="{{ path('app_performanceequipe_index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to List
+                    </a>
+                    <a href="{{ path('app_performanceequipe_edit', {'id': performanceequipe.id}) }}" class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Edit
+                    </a>
+                    {{ include('performanceequipe/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

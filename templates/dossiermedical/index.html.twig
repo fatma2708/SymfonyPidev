@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dossiermedical index{% endblock %}
+
+{% block body %}
+    <h1>Dossiermedical index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DernierCheckup</th>
+                <th>Allergies</th>
+                <th>Vaccinations</th>
+                <th>EtatAthlete</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dossiermedical in dossiermedicals %}
+            <tr>
+                <td>{{ dossiermedical.id }}</td>
+                <td>{{ dossiermedical.dernierCheckup ? dossiermedical.dernierCheckup|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ dossiermedical.allergies }}</td>
+                <td>{{ dossiermedical.vaccinations }}</td>
+                <td>{{ dossiermedical.etatAthlete }}</td>
+                <td>{{ dossiermedical.description }}</td>
+                <td>
+                    <a href="{{ path('app_dossiermedical_show', {'id': dossiermedical.id}) }}">show</a>
+                    <a href="{{ path('app_dossiermedical_edit', {'id': dossiermedical.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_dossiermedical_new') }}">Create new</a>
+{% endblock %}

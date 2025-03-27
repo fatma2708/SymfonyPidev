@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Installationsportive{% endblock %}
+
+{% block body %}
+    <h1>Installationsportive</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ installationsportive.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ installationsportive.nom }}</td>
+            </tr>
+            <tr>
+                <th>TypeInstallation</th>
+                <td>{{ installationsportive.typeInstallation }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ installationsportive.adresse }}</td>
+            </tr>
+            <tr>
+                <th>Capacite</th>
+                <td>{{ installationsportive.capacite }}</td>
+            </tr>
+            <tr>
+                <th>IsDisponible</th>
+                <td>{{ installationsportive.isDisponible ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Image_url</th>
+                <td>{{ installationsportive.imageUrl }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_installationsportive_index') }}">back to list</a>
+
+    <a href="{{ path('app_installationsportive_edit', {'id': installationsportive.id}) }}">edit</a>
+
+    {{ include('installationsportive/_delete_form.html.twig') }}
+{% endblock %}

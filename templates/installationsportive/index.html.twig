@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Installationsportive index{% endblock %}
+
+{% block body %}
+    <h1>Installationsportive index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>TypeInstallation</th>
+                <th>Adresse</th>
+                <th>Capacite</th>
+                <th>IsDisponible</th>
+                <th>Image_url</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for installationsportive in installationsportives %}
+            <tr>
+                <td>{{ installationsportive.id }}</td>
+                <td>{{ installationsportive.nom }}</td>
+                <td>{{ installationsportive.typeInstallation }}</td>
+                <td>{{ installationsportive.adresse }}</td>
+                <td>{{ installationsportive.capacite }}</td>
+                <td>{{ installationsportive.isDisponible ? 'Yes' : 'No' }}</td>
+                <td>{{ installationsportive.imageUrl }}</td>
+                <td>
+                    <a href="{{ path('app_installationsportive_show', {'id': installationsportive.id}) }}">show</a>
+                    <a href="{{ path('app_installationsportive_edit', {'id': installationsportive.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_installationsportive_new') }}">Create new</a>
+{% endblock %}

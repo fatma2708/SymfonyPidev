@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blessure{% endblock %}
+
+{% block body %}
+    <h1>Blessure</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ blessure.id }}</td>
+            </tr>
+            <tr>
+                <th>Athlete_id</th>
+                <td>{{ blessure.athleteId }}</td>
+            </tr>
+            <tr>
+                <th>TypeBlessure</th>
+                <td>{{ blessure.typeBlessure }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ blessure.description }}</td>
+            </tr>
+            <tr>
+                <th>DateBlessure</th>
+                <td>{{ blessure.dateBlessure ? blessure.dateBlessure|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateReprise</th>
+                <td>{{ blessure.dateReprise ? blessure.dateReprise|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_blessure_index') }}">back to list</a>
+
+    <a href="{{ path('app_blessure_edit', {'id': blessure.id}) }}">edit</a>
+
+    {{ include('blessure/_delete_form.html.twig') }}
+{% endblock %}

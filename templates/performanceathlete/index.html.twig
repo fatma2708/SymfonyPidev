@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Performanceathlete index{% endblock %}
+
+{% block body %}
+    <h1>Performanceathlete index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>MinutesJouees</th>
+                <th>Buts</th>
+                <th>PassesDecisives</th>
+                <th>Tirs</th>
+                <th>Interceptions</th>
+                <th>Fautes</th>
+                <th>CartonsJaunes</th>
+                <th>CartonsRouges</th>
+                <th>Rebonds</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for performanceathlete in performanceathletes %}
+            <tr>
+                <td>{{ performanceathlete.id }}</td>
+                <td>{{ performanceathlete.minutesJouees }}</td>
+                <td>{{ performanceathlete.buts }}</td>
+                <td>{{ performanceathlete.passesDecisives }}</td>
+                <td>{{ performanceathlete.tirs }}</td>
+                <td>{{ performanceathlete.interceptions }}</td>
+                <td>{{ performanceathlete.fautes }}</td>
+                <td>{{ performanceathlete.cartonsJaunes }}</td>
+                <td>{{ performanceathlete.cartonsRouges }}</td>
+                <td>{{ performanceathlete.rebonds }}</td>
+                <td>
+                    <a href="{{ path('app_performanceathlete_show', {'id': performanceathlete.id}) }}">show</a>
+                    <a href="{{ path('app_performanceathlete_edit', {'id': performanceathlete.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_performanceathlete_new') }}">Create new</a>
+{% endblock %}

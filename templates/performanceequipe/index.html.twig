@@ -1,0 +1,38 @@
+{% extends 'tables2.html.twig' %}
+
+{% block title %}Performanceequipe index{% endblock %}
+
+{% block body %}
+    <h1>Performanceequipe index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Victoires</th>
+                <th>Pertes</th>
+                <th>Rang</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for performanceequipe in performanceequipes %}
+            <tr>
+                <td>{{ performanceequipe.victoires }}</td>
+                <td>{{ performanceequipe.pertes }}</td>
+                <td>{{ performanceequipe.rang }}</td>
+                <td>
+                    <a href="{{ path('app_performanceequipe_show', {'id': performanceequipe.id}) }}">show</a>
+                    <a href="{{ path('app_performanceequipe_edit', {'id': performanceequipe.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_performanceequipe_new') }}">Create new</a>
+{% endblock %}

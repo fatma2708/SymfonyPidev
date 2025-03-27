@@ -1,0 +1,49 @@
+{% extends 'front.html.twig' %}
+
+{% block title %}Bootstrap Template Atlas{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/aos.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron jumbotron-fluid" id="banner" style="background-image: url({{ asset('img/banner-bk.jpg') }});">
+        <div class="container text-center text-md-left">
+            <header>
+                <div class="row justify-content-between">
+                    <div class="col-2">
+                        <img src="{{ asset('img/logo.png') }}" alt="logo">
+                    </div>
+                    <div class="col-6 align-self-center text-right">
+                        <a href="#" class="text-white lead">Get Early Access</a>
+                    </div>
+                </div>
+            </header>
+            <h1 class="display-3 text-white font-weight-bold my-5" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true">
+                A New Way<br>
+                To Start Business
+            </h1>
+            <p class="lead text-white my-4" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true">
+                Lorem ipsum dolor sit amet, id nec enim autem oblique, ei dico mentitum duo.
+                <br> Illum iusto laoreet his te. Lorem partiendo mel ex. Ad vitae admodum voluptatum per.
+            </p>
+            <a href="#" class="btn my-4 font-weight-bold atlas-cta cta-green" data-aos="fade" data-aos-easing="linear" data-aos-duration="1000" data-aos-once="true">Get Started</a>
+        </div>
+    </div>
+    
+    <div class="container my-5 py-2">
+        <h2 class="text-center font-weight-bold my-5">Smartest protection for your site</h2>
+        <div class="row">
+            {% for feature in features %}
+                <div class="col-md-4 text-center" data-aos="fade-up" data-aos-delay="{{ feature.delay }}" data-aos-duration="1000" data-aos-once="true">
+                    <img src="{{ asset(feature.image) }}" alt="{{ feature.title }}" class="mx-auto">
+                    <h4>{{ feature.title }}</h4>
+                    <p>{{ feature.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

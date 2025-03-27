@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Matchsportif{% endblock %}
+
+{% block body %}
+    <h1>Create new Matchsportif</h1>
+
+    {{ include('matchsportif/_form.html.twig') }}
+
+    <a href="{{ path('app_matchsportif_index') }}">back to list</a>
+{% endblock %}

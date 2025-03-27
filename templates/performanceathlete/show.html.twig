@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Performanceathlete{% endblock %}
+
+{% block body %}
+    <h1>Performanceathlete</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ performanceathlete.id }}</td>
+            </tr>
+            <tr>
+                <th>MinutesJouees</th>
+                <td>{{ performanceathlete.minutesJouees }}</td>
+            </tr>
+            <tr>
+                <th>Buts</th>
+                <td>{{ performanceathlete.buts }}</td>
+            </tr>
+            <tr>
+                <th>PassesDecisives</th>
+                <td>{{ performanceathlete.passesDecisives }}</td>
+            </tr>
+            <tr>
+                <th>Tirs</th>
+                <td>{{ performanceathlete.tirs }}</td>
+            </tr>
+            <tr>
+                <th>Interceptions</th>
+                <td>{{ performanceathlete.interceptions }}</td>
+            </tr>
+            <tr>
+                <th>Fautes</th>
+                <td>{{ performanceathlete.fautes }}</td>
+            </tr>
+            <tr>
+                <th>CartonsJaunes</th>
+                <td>{{ performanceathlete.cartonsJaunes }}</td>
+            </tr>
+            <tr>
+                <th>CartonsRouges</th>
+                <td>{{ performanceathlete.cartonsRouges }}</td>
+            </tr>
+            <tr>
+                <th>Rebonds</th>
+                <td>{{ performanceathlete.rebonds }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_performanceathlete_index') }}">back to list</a>
+
+    <a href="{{ path('app_performanceathlete_edit', {'id': performanceathlete.id}) }}">edit</a>
+
+    {{ include('performanceathlete/_delete_form.html.twig') }}
+{% endblock %}

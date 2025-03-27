@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrainment{% endblock %}
+
+{% block body %}
+    <h1>Entrainment</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ entrainment.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ entrainment.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ entrainment.description }}</td>
+            </tr>
+            <tr>
+                <th>DateDebut</th>
+                <td>{{ entrainment.dateDebut ? entrainment.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>DateFin</th>
+                <td>{{ entrainment.dateFin ? entrainment.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entrainment_index') }}">back to list</a>
+
+    <a href="{{ path('app_entrainment_edit', {'id': entrainment.id}) }}">edit</a>
+
+    {{ include('entrainment/_delete_form.html.twig') }}
+{% endblock %}

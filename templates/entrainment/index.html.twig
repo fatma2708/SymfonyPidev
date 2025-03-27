@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Entrainment index{% endblock %}
+
+{% block body %}
+    <h1>Entrainment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>DateDebut</th>
+                <th>DateFin</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entrainment in entrainments %}
+            <tr>
+                <td>{{ entrainment.id }}</td>
+                <td>{{ entrainment.nom }}</td>
+                <td>{{ entrainment.description }}</td>
+                <td>{{ entrainment.dateDebut ? entrainment.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ entrainment.dateFin ? entrainment.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_entrainment_show', {'id': entrainment.id}) }}">show</a>
+                    <a href="{{ path('app_entrainment_edit', {'id': entrainment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_entrainment_new') }}">Create new</a>
+{% endblock %}

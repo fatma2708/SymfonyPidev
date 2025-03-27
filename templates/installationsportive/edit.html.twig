@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Installationsportive{% endblock %}
+
+{% block body %}
+    <h1>Edit Installationsportive</h1>
+
+    {{ include('installationsportive/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_installationsportive_index') }}">back to list</a>
+
+    {{ include('installationsportive/_delete_form.html.twig') }}
+{% endblock %}

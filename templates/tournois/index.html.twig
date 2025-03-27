@@ -1,0 +1,65 @@
+{% extends 'tables.html.twig' %}
+
+{% block title %}Tournois index{% endblock %}
+
+{% block body %}
+    <h1>Tournois index</h1>
+
+    <div class="mb-4">
+        <a href="{{ path('app_tournois_new') }}" class="btn btn-primary">
+            <i class="fas fa-plus"></i> Create New Tournoi
+        </a>
+    </div>
+
+    <table class="table table-bordered table-striped mb-none" id="datatable-editable">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nom</th>
+                <th>Sport</th>
+                <th>Date Début</th>
+                <th>Date Fin</th>
+                <th>Adresse</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tournoi in tournois %}
+            <tr>
+                <td>{{ tournoi.nom }}</td>
+                <td>{{ tournoi.sport }}</td>
+                <td>{{ tournoi.dateDebut ? tournoi.dateDebut|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ tournoi.dateFin ? tournoi.dateFin|date('Y-m-d H:i') : '' }}</td>
+                <td>{{ tournoi.adresse }}</td>
+                <td class="actions">
+                    <a href="{{ path('app_tournois_show', {'id': tournoi.id}) }}" class="btn btn-sm btn-info">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                    <a href="{{ path('app_tournois_edit', {'id': tournoi.id}) }}" class="btn btn-sm btn-warning">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('#datatable-editable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": 5 }
+                ]
+            });
+        });
+    </script>
+{% endblock %}

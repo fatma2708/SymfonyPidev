@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Matchsportif{% endblock %}
+
+{% block body %}
+    <h1>Edit Matchsportif</h1>
+
+    {{ include('matchsportif/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_matchsportif_index') }}">back to list</a>
+
+    {{ include('matchsportif/_delete_form.html.twig') }}
+{% endblock %}
