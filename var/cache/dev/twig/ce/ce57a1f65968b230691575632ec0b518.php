@@ -29,17 +29,10 @@ class __TwigTemplate_52988ec497d5df3dcadb3b1a2536e7b8 extends Template
 
         $this->source = $this->getSourceContext();
 
-        $this->blocks = [
-            'title' => [$this, 'block_title'],
-            'stylesheets' => [$this, 'block_stylesheets'],
-            'body' => [$this, 'block_body'],
-        ];
-    }
+        $this->parent = false;
 
-    protected function doGetParent(array $context): bool|string|Template|TemplateWrapper
-    {
-        // line 1
-        return "base.html.twig";
+        $this->blocks = [
+        ];
     }
 
     protected function doDisplay(array $context, array $blocks = []): iterable
@@ -51,162 +44,219 @@ class __TwigTemplate_52988ec497d5df3dcadb3b1a2536e7b8 extends Template
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "template", "landing/index.html.twig"));
 
-        $this->parent = $this->loadTemplate("base.html.twig", "landing/index.html.twig", 1);
-        yield from $this->parent->unwrap()->yield($context, array_merge($this->blocks, $blocks));
-        
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+        // line 1
+        yield "<!DOCTYPE html>
+<html lang=\"zh-TW\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
+    <title>Bootstrap Template Atlas</title>
+    <meta name=\"description\" content=\"Free bootstrap template Atlas\">
+    <link rel=\"icon\" href=\"img/favicon.png\" sizes=\"32x32\" type=\"image/png\">
+    <!-- custom.css -->
+    <link rel=\"stylesheet\" href=\"css/custom.css\">
+    <!-- bootstrap.min.css -->
+    <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
+\t<!-- font-awesome -->
+    <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.min.css\">
+    
+    <!-- AOS -->
+    <link rel=\"stylesheet\" href=\"css/aos.css\">
+</head>
 
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
-
-    }
-
-    // line 3
-    /**
-     * @return iterable<null|scalar|\Stringable>
-     */
-    public function block_title(array $context, array $blocks = []): iterable
-    {
-        $macros = $this->macros;
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
-
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "title"));
-
-        yield "Bootstrap Template Atlas";
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
-
-        
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
-
-        yield from [];
-    }
-
-    // line 5
-    /**
-     * @return iterable<null|scalar|\Stringable>
-     */
-    public function block_stylesheets(array $context, array $blocks = []): iterable
-    {
-        $macros = $this->macros;
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
-
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "stylesheets"));
-
-        // line 6
-        yield "    <link rel=\"stylesheet\" href=\"";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("css/custom.css"), "html", null, true);
-        yield "\">
-    <link rel=\"stylesheet\" href=\"";
-        // line 7
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("css/bootstrap.min.css"), "html", null, true);
-        yield "\">
-    <link rel=\"stylesheet\" href=\"";
-        // line 8
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("font-awesome-4.7.0/css/font-awesome.min.css"), "html", null, true);
-        yield "\">
-    <link rel=\"stylesheet\" href=\"";
-        // line 9
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("css/aos.css"), "html", null, true);
-        yield "\">
-";
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
-
-        
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
-
-        yield from [];
-    }
-
-    // line 12
-    /**
-     * @return iterable<null|scalar|\Stringable>
-     */
-    public function block_body(array $context, array $blocks = []): iterable
-    {
-        $macros = $this->macros;
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2 = $this->extensions["Symfony\\Bundle\\WebProfilerBundle\\Twig\\WebProfilerExtension"];
-        $__internal_5a27a8ba21ca79b61932376b2fa922d2->enter($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
-
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->enter($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
-
-        // line 13
-        yield "    <div class=\"jumbotron jumbotron-fluid\" id=\"banner\" style=\"background-image: url(";
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/banner-bk.jpg"), "html", null, true);
-        yield ");\">
+<body>
+    <!-- banner -->
+    <div class=\"jumbotron jumbotron-fluid\" id=\"banner\" style=\"background-image: url(img/abstract-dark-blue-modern-futuristic-science-technology-hi-tech-digital-abstract-dark-blue-colorful-design-banner-background-vector-abstract-graphic-design-banner-pattern-background-web-template_181182-33424.avif);\">
         <div class=\"container text-center text-md-left\">
             <header>
                 <div class=\"row justify-content-between\">
                     <div class=\"col-2\">
-                        <img src=\"";
-        // line 18
-        yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("img/logo.png"), "html", null, true);
-        yield "\" alt=\"logo\">
+                        <img src=\"img/logo.png\" alt=\"logo\">
                     </div>
                     <div class=\"col-6 align-self-center text-right\">
-                        <a href=\"#\" class=\"text-white lead\">Get Early Access</a>
+                        <a href=\"#\" class=\"text-white lead\">Login</a>
                     </div>
                 </div>
             </header>
-            <h1 class=\"display-3 text-white font-weight-bold my-5\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\">
-                A New Way<br>
-                To Start Business
+            <h1 data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"display-3 text-white font-weight-bold my-5\">
+            \tA New Way<br>
+            \tTo Plan your Sports Tournaments
             </h1>
-            <p class=\"lead text-white my-4\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\">
+            <p data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"lead text-white my-4\">
                 Lorem ipsum dolor sit amet, id nec enim autem oblique, ei dico mentitum duo.
                 <br> Illum iusto laoreet his te. Lorem partiendo mel ex. Ad vitae admodum voluptatum per.
             </p>
-            <a href=\"#\" class=\"btn my-4 font-weight-bold atlas-cta cta-green\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\">Get Started</a>
+            <a href=\"";
+        // line 42
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_tournois_index");
+        yield "\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"btn my-4 font-weight-bold atlas-cta cta-green\">Browse Tournaments</a>
+            <a href=\"";
+        // line 43
+        yield $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_performanceequipe_index");
+        yield "\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"btn my-4 font-weight-bold atlas-cta cta-green\">Browse Stats</a>
+
         </div>
     </div>
-    
+    <!-- three-blcok -->
     <div class=\"container my-5 py-2\">
         <h2 class=\"text-center font-weight-bold my-5\">Smartest protection for your site</h2>
         <div class=\"row\">
-            ";
-        // line 40
-        $context['_parent'] = $context;
-        $context['_seq'] = CoreExtension::ensureTraversable((isset($context["features"]) || array_key_exists("features", $context) ? $context["features"] : (function () { throw new RuntimeError('Variable "features" does not exist.', 40, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["feature"]) {
-            // line 41
-            yield "                <div class=\"col-md-4 text-center\" data-aos=\"fade-up\" data-aos-delay=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["feature"], "delay", [], "any", false, false, false, 41), "html", null, true);
-            yield "\" data-aos-duration=\"1000\" data-aos-once=\"true\">
-                    <img src=\"";
-            // line 42
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape($this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl(CoreExtension::getAttribute($this->env, $this->source, $context["feature"], "image", [], "any", false, false, false, 42)), "html", null, true);
-            yield "\" alt=\"";
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["feature"], "title", [], "any", false, false, false, 42), "html", null, true);
-            yield "\" class=\"mx-auto\">
-                    <h4>";
-            // line 43
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["feature"], "title", [], "any", false, false, false, 43), "html", null, true);
-            yield "</h4>
-                    <p>";
-            // line 44
-            yield $this->env->getRuntime('Twig\Runtime\EscaperRuntime')->escape(CoreExtension::getAttribute($this->env, $this->source, $context["feature"], "description", [], "any", false, false, false, 44), "html", null, true);
-            yield "</p>
-                </div>
-            ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_key'], $context['feature'], $context['_parent']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 47
-        yield "        </div>
+            <div data-aos=\"fade-up\" data-aos-delay=\"0\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-4 text-center\">
+                <img src=\"img/smart-protect-1.jpg\" alt=\"Anti-spam\" class=\"mx-auto\">
+                <h4>Anti-spam</h4>
+                <p>Lorem ipsum dolor sit amet porro his no his deleniti</p>
+            </div>
+            <div data-aos=\"fade-up\" data-aos-delay=\"200\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-4 text-center\">
+                <img src=\"img/smart-protect-2.jpg\" alt=\"Phishing Detect\" class=\"mx-auto\">
+                <h4>Phishing Detect</h4>
+                <p>Ne error antiopam usu. Sed vocen concludaturque ea</p>
+            </div>
+            <div data-aos=\"fade-up\" data-aos-delay=\"400\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-4 text-center\">
+                <img src=\"img/smart-protect-3.jpg\" alt=\"Smart Scan\" class=\"mx-auto\">
+                <h4>Smart Scan</h4>
+                <p>Et usu ocurreret elaboraret doctus prodesse assueverit.</p>
+            </div>
+        </div>
     </div>
-";
-        
-        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
+    <!-- feature (skew background) -->
+    <div class=\"jumbotron jumbotron-fluid feature\" id=\"feature-first\">
+        <div class=\"container my-5\">
+            <div class=\"row justify-content-between text-center text-md-left\">
+                <div data-aos=\"fade-right\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6\">
+                    <h2 class=\"font-weight-bold\">Take a look inside</h2>
+                    <p class=\"my-4\">Te iisque labitur eos, nec sale argumentum scribentur no,
+                        <br> augue disputando in vim. Erat fugit sit at, ius lorem deserunt deterruisset no.</p>
+                    <a href=\"#\" class=\"btn my-4 font-weight-bold atlas-cta cta-blue\">Learn More</a>
+                </div>
+                <div data-aos=\"fade-left\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6 align-self-center\">
+                    <img src=\"img/feature-1.png\" alt=\"Take a look inside\" class=\"mx-auto d-block\">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- feature (green background) -->
+    <div class=\"jumbotron jumbotron-fluid feature\" id=\"feature-last\">
+        <div class=\"container\">
+            <div class=\"row justify-content-between text-center text-md-left\">
+                <div data-aos=\"fade-left\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6 flex-md-last\">
+                    <h2 class=\"font-weight-bold\">Safe and reliable</h2>
+                    <p class=\"my-4\">
+                        Duo suas detracto maiestatis ad, commodo lucilius invenire nec ad,
+                        <br> eum et oratio disputationi. Falli lobortis his ad
+                    </p>
+                    <a href=\"#\" class=\"btn my-4 font-weight-bold atlas-cta cta-blue\">Learn More</a>
+                </div>
+                <div data-aos=\"fade-right\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6 align-self-center flex-md-first\">
+                    <img src=\"img/feature-2.png\" alt=\"Safe and reliable\" class=\"mx-auto d-block\">
+                </div>
+            </div>
+        </div>
+    </div>
 
+    
+    <!-- client -->
+    <div class=\"jumbotron jumbotron-fluid\">
+        <div class=\"container\">
+            <div class=\"row\">
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-1.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-2.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-3.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-4.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-5.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-6.png\" class=\"mx-auto d-block\">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact -->
+    <div class=\"jumbotron jumbotron-fluid\" id=\"contact\" style=\"background-image: url(img/contact-bk.jpg);\">
+        <div class=\"container my-5\">
+            <div class=\"row justify-content-between\">
+                <div class=\"col-md-6 text-white\">
+                    <h2 class=\"font-weight-bold\">Contact Us</h2>
+                    <p class=\"my-4\">
+                        Te iisque labitur eos, nec sale argumentum scribentur,
+                        <br> augue disputando in vim. Erat fugit sit at, ius lorem.
+                    </p>
+                    <ul class=\"list-unstyled\">
+                        <li>Email : company_email@com</li>
+                        <li>Phone : 361-688-5824</li>
+                        <li>Address : 4826 White Avenue, Corpus Christi, Texas</li>
+                    </ul>
+                </div>
+                <div class=\"col-md-6\">
+                    <form>
+                    \t<div class=\"row\">
+\t                        <div class=\"form-group col-md-6\">
+\t                            <label for=\"name\">Your Name</label>
+\t                            <input type=\"name\" class=\"form-control\" id=\"name\">
+\t                        </div>
+\t                        <div class=\"form-group col-md-6\">
+\t                            <label for=\"Email\">Your Email</label>
+\t                            <input type=\"email\" class=\"form-control\" id=\"Email\">
+\t                        </div>
+\t                    </div>
+\t                    <div class=\"form-group\">
+\t                        <label for=\"message\">Message</label>
+\t                        <textarea class=\"form-control\" id=\"message\" rows=\"3\"></textarea>
+\t                    </div>
+                        <button type=\"submit\" class=\"btn font-weight-bold atlas-cta atlas-cta-wide cta-green my-3\">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+\t<!-- copyright -->
+\t<div class=\"jumbotron jumbotron-fluid\" id=\"copyright\">
+        <div class=\"container\">
+            <div class=\"row justify-content-between\">
+            \t<div class=\"col-md-6 text-white align-self-center text-center text-md-left my-2\">
+                    Copyright © 2018 Chen, Yi-Ya.
+                </div>
+                <div class=\"col-md-6 align-self-center text-center text-md-right my-2\" id=\"social-media\">
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-facebook\" aria-hidden=\"true\"></i>
+                    </a>
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-twitter\" aria-hidden=\"true\"></i>
+                    </a>
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-medium\" aria-hidden=\"true\"></i>
+                    </a>
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-linkedin\" aria-hidden=\"true\"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AOS -->
+    <script src=\"js/aos.js\"></script>
+    <script>
+      AOS.init({
+      });
+    </script>
+</body>
+
+</html>";
         
         $__internal_5a27a8ba21ca79b61932376b2fa922d2->leave($__internal_5a27a8ba21ca79b61932376b2fa922d2_prof);
+
+        
+        $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
 
         yield from [];
     }
@@ -232,60 +282,211 @@ class __TwigTemplate_52988ec497d5df3dcadb3b1a2536e7b8 extends Template
      */
     public function getDebugInfo(): array
     {
-        return array (  202 => 47,  193 => 44,  189 => 43,  183 => 42,  178 => 41,  174 => 40,  149 => 18,  140 => 13,  127 => 12,  114 => 9,  110 => 8,  106 => 7,  101 => 6,  88 => 5,  65 => 3,  42 => 1,);
+        return array (  95 => 43,  91 => 42,  48 => 1,);
     }
 
     public function getSourceContext(): Source
     {
-        return new Source("{% extends 'base.html.twig' %}
+        return new Source("<!DOCTYPE html>
+<html lang=\"zh-TW\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
+    <title>Bootstrap Template Atlas</title>
+    <meta name=\"description\" content=\"Free bootstrap template Atlas\">
+    <link rel=\"icon\" href=\"img/favicon.png\" sizes=\"32x32\" type=\"image/png\">
+    <!-- custom.css -->
+    <link rel=\"stylesheet\" href=\"css/custom.css\">
+    <!-- bootstrap.min.css -->
+    <link rel=\"stylesheet\" href=\"css/bootstrap.min.css\">
+\t<!-- font-awesome -->
+    <link rel=\"stylesheet\" href=\"font-awesome-4.7.0/css/font-awesome.min.css\">
+    
+    <!-- AOS -->
+    <link rel=\"stylesheet\" href=\"css/aos.css\">
+</head>
 
-{% block title %}Bootstrap Template Atlas{% endblock %}
-
-{% block stylesheets %}
-    <link rel=\"stylesheet\" href=\"{{ asset('css/custom.css') }}\">
-    <link rel=\"stylesheet\" href=\"{{ asset('css/bootstrap.min.css') }}\">
-    <link rel=\"stylesheet\" href=\"{{ asset('font-awesome-4.7.0/css/font-awesome.min.css') }}\">
-    <link rel=\"stylesheet\" href=\"{{ asset('css/aos.css') }}\">
-{% endblock %}
-
-{% block body %}
-    <div class=\"jumbotron jumbotron-fluid\" id=\"banner\" style=\"background-image: url({{ asset('img/banner-bk.jpg') }});\">
+<body>
+    <!-- banner -->
+    <div class=\"jumbotron jumbotron-fluid\" id=\"banner\" style=\"background-image: url(img/abstract-dark-blue-modern-futuristic-science-technology-hi-tech-digital-abstract-dark-blue-colorful-design-banner-background-vector-abstract-graphic-design-banner-pattern-background-web-template_181182-33424.avif);\">
         <div class=\"container text-center text-md-left\">
             <header>
                 <div class=\"row justify-content-between\">
                     <div class=\"col-2\">
-                        <img src=\"{{ asset('img/logo.png') }}\" alt=\"logo\">
+                        <img src=\"img/logo.png\" alt=\"logo\">
                     </div>
                     <div class=\"col-6 align-self-center text-right\">
-                        <a href=\"#\" class=\"text-white lead\">Get Early Access</a>
+                        <a href=\"#\" class=\"text-white lead\">Login</a>
                     </div>
                 </div>
             </header>
-            <h1 class=\"display-3 text-white font-weight-bold my-5\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\">
-                A New Way<br>
-                To Start Business
+            <h1 data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"display-3 text-white font-weight-bold my-5\">
+            \tA New Way<br>
+            \tTo Plan your Sports Tournaments
             </h1>
-            <p class=\"lead text-white my-4\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\">
+            <p data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"lead text-white my-4\">
                 Lorem ipsum dolor sit amet, id nec enim autem oblique, ei dico mentitum duo.
                 <br> Illum iusto laoreet his te. Lorem partiendo mel ex. Ad vitae admodum voluptatum per.
             </p>
-            <a href=\"#\" class=\"btn my-4 font-weight-bold atlas-cta cta-green\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\">Get Started</a>
+            <a href=\"{{ path('app_tournois_index') }}\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"btn my-4 font-weight-bold atlas-cta cta-green\">Browse Tournaments</a>
+            <a href=\"{{ path('app_performanceequipe_index') }}\" data-aos=\"fade\" data-aos-easing=\"linear\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"btn my-4 font-weight-bold atlas-cta cta-green\">Browse Stats</a>
+
         </div>
     </div>
-    
+    <!-- three-blcok -->
     <div class=\"container my-5 py-2\">
         <h2 class=\"text-center font-weight-bold my-5\">Smartest protection for your site</h2>
         <div class=\"row\">
-            {% for feature in features %}
-                <div class=\"col-md-4 text-center\" data-aos=\"fade-up\" data-aos-delay=\"{{ feature.delay }}\" data-aos-duration=\"1000\" data-aos-once=\"true\">
-                    <img src=\"{{ asset(feature.image) }}\" alt=\"{{ feature.title }}\" class=\"mx-auto\">
-                    <h4>{{ feature.title }}</h4>
-                    <p>{{ feature.description }}</p>
-                </div>
-            {% endfor %}
+            <div data-aos=\"fade-up\" data-aos-delay=\"0\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-4 text-center\">
+                <img src=\"img/smart-protect-1.jpg\" alt=\"Anti-spam\" class=\"mx-auto\">
+                <h4>Anti-spam</h4>
+                <p>Lorem ipsum dolor sit amet porro his no his deleniti</p>
+            </div>
+            <div data-aos=\"fade-up\" data-aos-delay=\"200\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-4 text-center\">
+                <img src=\"img/smart-protect-2.jpg\" alt=\"Phishing Detect\" class=\"mx-auto\">
+                <h4>Phishing Detect</h4>
+                <p>Ne error antiopam usu. Sed vocen concludaturque ea</p>
+            </div>
+            <div data-aos=\"fade-up\" data-aos-delay=\"400\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-4 text-center\">
+                <img src=\"img/smart-protect-3.jpg\" alt=\"Smart Scan\" class=\"mx-auto\">
+                <h4>Smart Scan</h4>
+                <p>Et usu ocurreret elaboraret doctus prodesse assueverit.</p>
+            </div>
         </div>
     </div>
-{% endblock %}
-", "landing/index.html.twig", "C:\\Users\\fatma\\symfonypidev\\templates\\landing\\index.html.twig");
+    <!-- feature (skew background) -->
+    <div class=\"jumbotron jumbotron-fluid feature\" id=\"feature-first\">
+        <div class=\"container my-5\">
+            <div class=\"row justify-content-between text-center text-md-left\">
+                <div data-aos=\"fade-right\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6\">
+                    <h2 class=\"font-weight-bold\">Take a look inside</h2>
+                    <p class=\"my-4\">Te iisque labitur eos, nec sale argumentum scribentur no,
+                        <br> augue disputando in vim. Erat fugit sit at, ius lorem deserunt deterruisset no.</p>
+                    <a href=\"#\" class=\"btn my-4 font-weight-bold atlas-cta cta-blue\">Learn More</a>
+                </div>
+                <div data-aos=\"fade-left\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6 align-self-center\">
+                    <img src=\"img/feature-1.png\" alt=\"Take a look inside\" class=\"mx-auto d-block\">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- feature (green background) -->
+    <div class=\"jumbotron jumbotron-fluid feature\" id=\"feature-last\">
+        <div class=\"container\">
+            <div class=\"row justify-content-between text-center text-md-left\">
+                <div data-aos=\"fade-left\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6 flex-md-last\">
+                    <h2 class=\"font-weight-bold\">Safe and reliable</h2>
+                    <p class=\"my-4\">
+                        Duo suas detracto maiestatis ad, commodo lucilius invenire nec ad,
+                        <br> eum et oratio disputationi. Falli lobortis his ad
+                    </p>
+                    <a href=\"#\" class=\"btn my-4 font-weight-bold atlas-cta cta-blue\">Learn More</a>
+                </div>
+                <div data-aos=\"fade-right\" data-aos-duration=\"1000\" data-aos-once=\"true\" class=\"col-md-6 align-self-center flex-md-first\">
+                    <img src=\"img/feature-2.png\" alt=\"Safe and reliable\" class=\"mx-auto d-block\">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- client -->
+    <div class=\"jumbotron jumbotron-fluid\">
+        <div class=\"container\">
+            <div class=\"row\">
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-1.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-2.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-3.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-4.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-5.png\" class=\"mx-auto d-block\">
+                </div>
+                <div class=\"col-sm-4 col-md-2 py-2 align-self-center\">
+                    <img src=\"img/client-6.png\" class=\"mx-auto d-block\">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- contact -->
+    <div class=\"jumbotron jumbotron-fluid\" id=\"contact\" style=\"background-image: url(img/contact-bk.jpg);\">
+        <div class=\"container my-5\">
+            <div class=\"row justify-content-between\">
+                <div class=\"col-md-6 text-white\">
+                    <h2 class=\"font-weight-bold\">Contact Us</h2>
+                    <p class=\"my-4\">
+                        Te iisque labitur eos, nec sale argumentum scribentur,
+                        <br> augue disputando in vim. Erat fugit sit at, ius lorem.
+                    </p>
+                    <ul class=\"list-unstyled\">
+                        <li>Email : company_email@com</li>
+                        <li>Phone : 361-688-5824</li>
+                        <li>Address : 4826 White Avenue, Corpus Christi, Texas</li>
+                    </ul>
+                </div>
+                <div class=\"col-md-6\">
+                    <form>
+                    \t<div class=\"row\">
+\t                        <div class=\"form-group col-md-6\">
+\t                            <label for=\"name\">Your Name</label>
+\t                            <input type=\"name\" class=\"form-control\" id=\"name\">
+\t                        </div>
+\t                        <div class=\"form-group col-md-6\">
+\t                            <label for=\"Email\">Your Email</label>
+\t                            <input type=\"email\" class=\"form-control\" id=\"Email\">
+\t                        </div>
+\t                    </div>
+\t                    <div class=\"form-group\">
+\t                        <label for=\"message\">Message</label>
+\t                        <textarea class=\"form-control\" id=\"message\" rows=\"3\"></textarea>
+\t                    </div>
+                        <button type=\"submit\" class=\"btn font-weight-bold atlas-cta atlas-cta-wide cta-green my-3\">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+\t<!-- copyright -->
+\t<div class=\"jumbotron jumbotron-fluid\" id=\"copyright\">
+        <div class=\"container\">
+            <div class=\"row justify-content-between\">
+            \t<div class=\"col-md-6 text-white align-self-center text-center text-md-left my-2\">
+                    Copyright © 2018 Chen, Yi-Ya.
+                </div>
+                <div class=\"col-md-6 align-self-center text-center text-md-right my-2\" id=\"social-media\">
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-facebook\" aria-hidden=\"true\"></i>
+                    </a>
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-twitter\" aria-hidden=\"true\"></i>
+                    </a>
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-medium\" aria-hidden=\"true\"></i>
+                    </a>
+                    <a href=\"#\" class=\"d-inline-block text-center ml-2\">
+                    \t<i class=\"fa fa-linkedin\" aria-hidden=\"true\"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- AOS -->
+    <script src=\"js/aos.js\"></script>
+    <script>
+      AOS.init({
+      });
+    </script>
+</body>
+
+</html>", "landing/index.html.twig", "C:\\Users\\fatma\\symfonypidev\\templates\\landing\\index.html.twig");
     }
 }

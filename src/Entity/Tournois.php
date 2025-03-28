@@ -44,7 +44,7 @@ class Tournois
     #[ORM\Column(type: "string", length: 255,nullable: true)]
         #[Assert\NotBlank(message: "Veuillez choisir un sport.")]
 
-    private ?string $adresse;
+    private string $adresse;
 
     #[ORM\OneToMany(mappedBy: "tournois", targetEntity: Performanceequipe::class)]
     private Collection $performanceequipes;

@@ -1367,6 +1367,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'tattali/calendar-bundle' => array(
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'reference' => '0885fc7157211b9c0b6e9c49f8b815b8f979d52d',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../tattali/calendar-bundle',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'theseer/tokenizer' => array(
             'pretty_version' => '1.2.3',
             'version' => '1.2.3.0',

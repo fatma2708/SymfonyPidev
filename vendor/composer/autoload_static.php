@@ -163,6 +163,7 @@ class ComposerStaticInit54c05e64f01f49eb136e9af7b3075bdd
         'C' => 
         array (
             'Composer\\Semver\\' => 16,
+            'CalendarBundle\\' => 15,
         ),
         'A' => 
         array (
@@ -593,6 +594,10 @@ class ComposerStaticInit54c05e64f01f49eb136e9af7b3075bdd
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
+        ),
+        'CalendarBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tattali/calendar-bundle/src',
         ),
         'App\\Tests\\' => 
         array (

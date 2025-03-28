@@ -37,6 +37,8 @@ return [
         '/performanceequipe/new' => [[['_route' => 'app_performanceequipe_new', '_controller' => 'App\\Controller\\PerformanceequipeController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/tournois' => [[['_route' => 'app_tournois_index', '_controller' => 'App\\Controller\\TournoisController::index'], null, ['GET' => 0], null, false, false, null]],
         '/tournois/new' => [[['_route' => 'app_tournois_new', '_controller' => 'App\\Controller\\TournoisController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        '/tournois/calendar' => [[['_route' => 'app_tournois_calendar', '_controller' => 'App\\Controller\\TournoisController::calendar'], null, null, null, false, false, null]],
+        '/tournois/calendar/events' => [[['_route' => 'fc_load_events', '_controller' => 'App\\Controller\\TournoisController::loadCalendarEvents'], null, ['GET' => 0], null, false, false, null]],
         '/utilisateur' => [[['_route' => 'app_utilisateur_index', '_controller' => 'App\\Controller\\UtilisateurController::index'], null, ['GET' => 0], null, false, false, null]],
         '/utilisateur/new' => [[['_route' => 'app_utilisateur_new', '_controller' => 'App\\Controller\\UtilisateurController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
     ],
