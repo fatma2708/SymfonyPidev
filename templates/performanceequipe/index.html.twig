@@ -8,7 +8,8 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Nom</th>
+                <th>Nom equipe</th>
+                <th>Nom Tournoi</th>
                 <th>Victoires</th>
                 <th>Pertes</th>
                 <th>Rang</th>
@@ -18,9 +19,12 @@
         <tbody>
         {% for performanceequipe in performanceequipes %}
             <tr>
+                
                 <td>{{ performanceequipe.victoires }}</td>
                 <td>{{ performanceequipe.pertes }}</td>
                 <td>{{ performanceequipe.rang }}</td>
+                <td>{{ performanceequipe.eqipe.nom }}</td>
+                <td>{{performanceequipe.tournois.nom}}</td>
                 <td>
                     <a href="{{ path('app_performanceequipe_show', {'id': performanceequipe.id}) }}">show</a>
                     <a href="{{ path('app_performanceequipe_edit', {'id': performanceequipe.id}) }}">edit</a>

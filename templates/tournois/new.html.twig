@@ -2,6 +2,12 @@
 
 {% block title %}Create New Tournoi{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+{% endblock %}
+
 {% block body %}
     <section class="panel">
         <header class="panel-heading">
@@ -12,7 +18,6 @@
 
             <div class="form-group">
                 <label class="col-md-3 control-label">{{ form_label(form.nom) }}</label>
-                
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fas fa-trophy"></i></span>
@@ -79,12 +84,17 @@
                 </div>
             </div>
 
+            {# Adresse Field with a Search Button #}
             <div class="form-group">
                 <label class="col-md-3 control-label">{{ form_label(form.adresse) }}</label>
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
-                        {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Enter address'}}) }}
+                        {# Note: we removed the readonly attribute to allow manual typing #}
+                        {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Enter address or search on the map'}}) }}
+                        <span class="input-group-btn">
+                            <button type="button" id="search-button" class="btn btn-default">Search</button>
+                        </span>
                     </div>
                     {% if form.adresse.vars.errors|length > 0 %}
                         <div class="text-danger">
@@ -96,14 +106,105 @@
                 </div>
             </div>
 
+            {# Map Container #}
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-3">
-                    <button class="btn btn-primary"><i class="fas fa-save"></i> {{ button_label|default('Save') }}</button>
-                    <a href="{{ path('app_tournois_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Back to list</a>
+                    <button class="btn btn-primary">
+                        <i class="fas fa-save"></i> {{ button_label|default('Save') }}
+                    </button>
+                    <a href="{{ path('app_tournois_index') }}" class="btn btn-default">
+                        <i class="fas fa-arrow-left"></i> Back to list
+                    </a>
                 </div>
             </div>
 
             {{ form_end(form) }}
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize map (centered at Paris; adjust as needed)
+            var map = L.map('map').setView([48.8566, 2.3522], 13);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            var marker;
+            // Get the adresse input element by its ID
+            var adresseInput = document.getElementById('{{ form.adresse.vars.id }}');
+
+            // Function to update marker and map view
+            function updateMap(lat, lng, displayName) {
+                map.setView([lat, lng], 13);
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker([lat, lng]).addTo(map);
+                if(displayName){
+                    adresseInput.value = displayName;
+                } else {
+                    adresseInput.value = lat.toFixed(6) + ',' + lng.toFixed(6);
+                }
+            }
+
+            // When the map is clicked, perform reverse geocoding using Nominatim
+            map.on('click', function(e) {
+                var lat = e.latlng.lat.toFixed(6);
+                var lng = e.latlng.lng.toFixed(6);
+
+                fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + '&lon=' + lng)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data && data.display_name) {
+                            updateMap(lat, lng, data.display_name);
+                        } else {
+                            updateMap(lat, lng);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Reverse geocoding error:', error);
+                        updateMap(lat, lng);
+                    });
+            });
+
+            // Manual search: when the search button is clicked
+            document.getElementById('search-button').addEventListener('click', function() {
+                var query = adresseInput.value;
+                if(query.trim() === ''){
+                    alert('Please enter a location to search.');
+                    return;
+                }
+                // Call Nominatim search API
+                fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query))
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data && data.length > 0) {
+                            // Use the first result
+                            var result = data[0];
+                            var lat = parseFloat(result.lat);
+                            var lon = parseFloat(result.lon);
+                            updateMap(lat, lon, result.display_name);
+                        } else {
+                            alert('No results found for "' + query + '".');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Geocoding error:', error);
+                        alert('Error fetching location data.');
+                    });
+            });
+        });
+    </script>
 {% endblock %}

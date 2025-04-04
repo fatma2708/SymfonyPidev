@@ -82,6 +82,8 @@
 							<table class="table table-bordered table-striped mb-none" id="datatable-editable">
 								<thead>
             <tr>
+				<th>Equipe</th>
+				<th>Tournoi</th>
                 <th>Victoires</th>
                 <th>Pertes</th>
                 <th>Rang</th>
@@ -92,6 +94,8 @@
             <tbody>
 				{% for performanceequipe in performanceequipes %}
             <tr>
+				<td>{{ performanceequipe.equipe.nom }}</td>
+				<td>{{ performanceequipe.tournois.nom }}</td>
                 <td>{{ performanceequipe.victoires }}</td>
                 <td>{{ performanceequipe.pertes }}</td>
                 <td>{{ performanceequipe.rang }}</td>

@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Entity]
 class Tournois
 {
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: "integer")]
@@ -56,6 +57,8 @@ class Tournois
     {
         $this->performanceequipes = new ArrayCollection();
         $this->matchsportifs = new ArrayCollection();
+        $this->favoritedBy = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -153,5 +156,28 @@ class Tournois
     public function getMatchsportifs(): Collection
     {
         return $this->matchsportifs;
+    }
+    #[ORM\ManyToMany(targetEntity: Utilisateur::class, inversedBy: 'favoriteTournois')]
+    private Collection $favoritedBy;
+
+    public function getFavoritedBy(): Collection
+    {
+        return $this->favoritedBy;
+    }
+
+    public function addFavoritedBy(Utilisateur $user): self
+    {
+        if (!$this->favoritedBy->contains($user)) {
+            $this->favoritedBy->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoritedBy(Utilisateur $user): self
+    {
+        $this->favoritedBy->removeElement($user);
+
+        return $this;
     }
 }

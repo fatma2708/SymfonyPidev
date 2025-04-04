@@ -1,8 +1,12 @@
-{# filepath: c:\Users\fatma\symfonypidev\templates\tournois\edit.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Edit Tournoi{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+{% endblock %}
 
 {% block body %}
     <section class="panel">
@@ -10,67 +14,44 @@
             <h2 class="panel-title">Edit Tournoi</h2>
         </header>
         <div class="panel-body">
-            {{ form_start(form, {'attr': {'novalidate':'novalidate','class': 'form-horizontal form-bordered'}}) }}
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'form-horizontal form-bordered'}}) }}
 
-            <div class="form-group">
-                <label class="col-md-3 control-label">{{ form_label(form.nom) }}</label>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fas fa-trophy"></i></span>
-                        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Tournament Name'}}) }}
-                    </div>
-                    {{ form_errors(form.nom) }}
-                </div>
-            </div>
+            {# Your existing form fields here #}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.sport) }}
+            {{ form_row(form.dateDebut) }}
+            {{ form_row(form.dateFin) }}
 
-            <div class="form-group">
-                <label class="col-md-3 control-label">{{ form_label(form.sport) }}</label>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fas fa-futbol"></i></span>
-                        {{ form_widget(form.sport, {'attr': {'class': 'form-control', 'placeholder': 'Sport Type'}}) }}
-                    </div>
-                    {{ form_errors(form.sport) }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label">{{ form_label(form.dateDebut) }}</label>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fas fa-calendar"></i></span>
-                        {{ form_widget(form.dateDebut, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
-                    </div>
-                    {{ form_errors(form.dateDebut) }}
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-md-3 control-label">{{ form_label(form.dateFin) }}</label>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="fas fa-calendar-check"></i></span>
-                        {{ form_widget(form.dateFin, {'attr': {'class': 'form-control', 'type': 'date'}}) }}
-                    </div>
-                    {{ form_errors(form.dateFin) }}
-                </div>
-            </div>
-
+            {# Adresse Field with Search Button #}
             <div class="form-group">
                 <label class="col-md-3 control-label">{{ form_label(form.adresse) }}</label>
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fas fa-map-marker-alt"></i></span>
-                        {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Enter Address'}}) }}
+                        {{ form_widget(form.adresse, {'attr': {'class': 'form-control', 'placeholder': 'Enter address or search on map'}}) }}
+                        <span class="input-group-btn">
+                            <button type="button" id="search-button" class="btn btn-default">Search</button>
+                        </span>
                     </div>
                     {{ form_errors(form.adresse) }}
                 </div>
             </div>
 
+            {# Map Section #}
+            <div class="form-group">
+                <div class="col-md-9 col-md-offset-3">
+                    <div id="map" style="height: 400px; margin-bottom: 20px;"></div>
+                </div>
+            </div>
+
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-3">
-                    <button class="btn btn-warning"><i class="fas fa-edit"></i> {{ button_label|default('Update') }}</button>
-                    <a href="{{ path('app_tournois_index') }}" class="btn btn-default"><i class="fas fa-arrow-left"></i> Back to list</a>
+                    <button class="btn btn-warning">
+                        <i class="fas fa-edit"></i> Update
+                    </button>
+                    <a href="{{ path('app_tournois_index') }}" class="btn btn-default">
+                        <i class="fas fa-arrow-left"></i> Back to list
+                    </a>
                 </div>
             </div>
 
@@ -86,4 +67,86 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var map = L.map('map').setView([48.8566, 2.3522], 13); // Default to Paris, update dynamically
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            var marker;
+            var adresseInput = document.getElementById('{{ form.adresse.vars.id }}');
+
+            // If an existing address is present, attempt to place the marker
+            if (adresseInput.value.trim() !== '') {
+                fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(adresseInput.value))
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.length > 0) {
+                            var lat = parseFloat(data[0].lat);
+                            var lon = parseFloat(data[0].lon);
+                            map.setView([lat, lon], 13);
+                            marker = L.marker([lat, lon]).addTo(map);
+                        }
+                    });
+            }
+
+            function updateMap(lat, lng, displayName) {
+                map.setView([lat, lng], 13);
+                if (marker) {
+                    map.removeLayer(marker);
+                }
+                marker = L.marker([lat, lng]).addTo(map);
+                adresseInput.value = displayName ? displayName : lat.toFixed(6) + ',' + lng.toFixed(6);
+            }
+
+            map.on('click', function(e) {
+                var lat = e.latlng.lat.toFixed(6);
+                var lng = e.latlng.lng.toFixed(6);
+
+                fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=' + lat + '&lon=' + lng)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.display_name) {
+                            updateMap(lat, lng, data.display_name);
+                        } else {
+                            updateMap(lat, lng);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Reverse geocoding error:', error);
+                        updateMap(lat, lng);
+                    });
+            });
+
+            document.getElementById('search-button').addEventListener('click', function() {
+                var query = adresseInput.value;
+                if(query.trim() === ''){
+                    alert('Please enter a location to search.');
+                    return;
+                }
+                fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + encodeURIComponent(query))
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.length > 0) {
+                            var result = data[0];
+                            var lat = parseFloat(result.lat);
+                            var lon = parseFloat(result.lon);
+                            updateMap(lat, lon, result.display_name);
+                        } else {
+                            alert('No results found for "' + query + '".');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Geocoding error:', error);
+                        alert('Error fetching location data.');
+                    });
+            });
+        });
+    </script>
 {% endblock %}

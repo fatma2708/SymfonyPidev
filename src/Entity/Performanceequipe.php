@@ -16,12 +16,13 @@ class Performanceequipe
     #[ORM\Column(type: "integer")]
     private ?int $id = null;
 
-    // The property name here is "equipe", not "equipe_id".
     #[ORM\ManyToOne(targetEntity: Equipe::class, inversedBy: "performanceequipes")]
     #[ORM\JoinColumn(name: 'equipe_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?Equipe $equipe = null;
 
     #[ORM\ManyToOne(targetEntity: Tournois::class, inversedBy: "performanceequipes")]
+    #[Assert\NotBlank(message: "Veuillez saisir les victoires.")]
+
     #[ORM\JoinColumn(name: 'tournois_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private ?Tournois $tournois = null;
 

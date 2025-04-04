@@ -9,6 +9,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Repository\PerformanceequipeRepository;
+
 
 #[Route('/performanceequipe')]
 final class PerformanceequipeController extends AbstractController
@@ -44,6 +46,46 @@ final class PerformanceequipeController extends AbstractController
             'form' => $form,
         ]);
     }
+    // PerformanceequipeController.php
+#[Route('/chart', name: 'app_performanceequipe_chart', methods: ['GET'])]
+public function chart(PerformanceequipeRepository $repository): Response
+{
+    $rawData = $repository->getAllPerformanceData();
+    
+    // Process data for top 3 teams
+    $teamScores = [];
+    foreach ($rawData as $entry) {
+        $team = $entry['equipeName'];
+        if (!isset($teamScores[$team])) {
+            $teamScores[$team] = 0;
+        }
+        $teamScores[$team] += $entry['performanceScore'];
+    }
+    arsort($teamScores);
+    $topTeams = array_slice($teamScores, 0, 3, true);
+
+    // Group data by tournament
+    $tournoisData = [];
+    foreach ($rawData as $entry) {
+        $tournoiId = $entry['tournoiId'];
+        if (!isset($tournoisData[$tournoiId])) {
+            $tournoisData[$tournoiId] = [
+                'name' => $entry['tournoiName'],
+                'wins' => []
+            ];
+        }
+        $tournoisData[$tournoiId]['wins'][] = [
+            'equipe' => $entry['equipeName'],
+            'wins' => $entry['totalWins']
+        ];
+    }
+
+    return $this->render('performanceequipe/chart.html.twig', [
+        'topTeams' => $topTeams,
+        'tournoisData' => $tournoisData,
+        'rawData' => $rawData
+    ]);
+}
 
     #[Route('/{id}', name: 'app_performanceequipe_show', methods: ['GET'])]
     public function show(Performanceequipe $performanceequipe): Response
@@ -70,6 +112,7 @@ final class PerformanceequipeController extends AbstractController
             'form' => $form,
         ]);
     }
+   
 
     #[Route('/{id}', name: 'app_performanceequipe_delete', methods: ['POST'])]
     public function delete(Request $request, Performanceequipe $performanceequipe, EntityManagerInterface $entityManager): Response
@@ -81,4 +124,5 @@ final class PerformanceequipeController extends AbstractController
 
         return $this->redirectToRoute('app_performanceequipe_index', [], Response::HTTP_SEE_OTHER);
     }
+    
 }

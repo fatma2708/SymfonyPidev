@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Form;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 use App\Entity\Tournois;
 use Symfony\Component\Form\AbstractType;
@@ -14,8 +15,14 @@ class TournoisType extends AbstractType
         $builder
             // Removed the id field as you don't want to display it
             ->add('nom', null, ['attr' => ['class' => 'form-control']])
-            ->add('sport',null, [
-                'attr' => ['class' => 'form-control'],
+            ->add('sport', ChoiceType::class, [
+                'choices' => [
+                    'Football' => 'football',
+                    'Basketball' => 'basketball',
+                    'Volleyball' => 'volleyball',
+                ],
+                'placeholder' => 'Choisir un sport',
+                'required' => true,
             ])
             ->add('dateDebut', null, [
                 'widget' => 'single_text',

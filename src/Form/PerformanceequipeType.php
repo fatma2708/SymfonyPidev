@@ -20,11 +20,11 @@ class PerformanceequipeType extends AbstractType
             ->add('rang')
             ->add('equipe', EntityType::class, [
                 'class' => Equipe::class,
-                'choice_label' => 'id', // or use a more descriptive property such as 'nom'
+                'choice_label' => 'nom', 
             ])
             ->add('tournois', EntityType::class, [
                 'class' => Tournois::class,
-                'choice_label' => 'id', // adjust as needed
+                'choice_label' => 'nom', 
             ])
         ;
     }

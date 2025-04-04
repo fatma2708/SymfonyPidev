@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 #[Route('/tournois')]
 final class TournoisController extends AbstractController
@@ -135,5 +136,17 @@ public function loadCalendarEvents(
 
     return new JsonResponse($events);
 }
+#[Route('/cards', name: 'tournois_cards', methods: ['GET'])]
+public function cards(SessionInterface $session, TournoisRepository $tournoisRepository): Response
+{
+    $tournois = $tournoisRepository->findAll();
+    $favorites = $session->get('favorites', []);
+
+    return $this->render('tournois/cards.html.twig', [
+        'tournois' => $tournois,
+        'favorites' => $favorites,
+    ]);
+}
+
     
 }

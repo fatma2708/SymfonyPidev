@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use App\Entity\Equipe;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity]
 class Utilisateur
@@ -177,4 +178,35 @@ class Utilisateur
 
     #[ORM\OneToMany(mappedBy: "athlete_id", targetEntity: Performanceathlete::class)]
     private Collection $performanceathletes;
+    #[ORM\ManyToMany(targetEntity: Tournois::class, mappedBy: 'favoritedBy')]
+    private Collection $favoriteTournois;
+
+    public function __construct()
+    {
+        $this->favoriteTournois = new ArrayCollection();
+    }
+
+    public function getFavoriteTournois(): Collection
+    {
+        return $this->favoriteTournois;
+    }
+
+    public function addFavoriteTournois(Tournois $tournois): self
+    {
+        if (!$this->favoriteTournois->contains($tournois)) {
+            $this->favoriteTournois->add($tournois);
+            $tournois->addFavoritedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFavoriteTournois(Tournois $tournois): self
+    {
+        if ($this->favoriteTournois->removeElement($tournois)) {
+            $tournois->removeFavoritedBy($this);
+        }
+
+        return $this;
+    }
 }
