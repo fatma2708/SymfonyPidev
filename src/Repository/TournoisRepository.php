@@ -23,5 +23,6 @@ public function findBetweenDates(\DateTimeInterface $start, \DateTimeInterface $
         ->getQuery()
         ->getResult();
 }
+
     // Add custom methods as needed
 }

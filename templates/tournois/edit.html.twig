@@ -6,9 +6,95 @@
     {{ parent() }}
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    {{ parent() }}
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.css"/>
+    <!-- Custom CSS -->
+    <style>
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            transition: all 0.3s;
+            z-index: 1000;
+            background: #ffffff;
+            box-shadow: 0 0 35px 0 rgba(49,57,66,.1);
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -280px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .sidebar.active {
+                margin-left: 0;
+            }
+        }
+        
+        .navbar {
+            padding: 15px 20px;
+            background: #fff !important;
+            box-shadow: 0 1px 15px rgba(0,0,0,.04);
+        }
+        
+        .card {
+            border: none;
+            box-shadow: 0 0 35px 0 rgba(49,57,66,.1);
+            border-radius: 12px;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
+<div class="wrapper">
+        {% block sidebar %}
+        <!-- Sidebar -->
+        <nav class="sidebar bg-white">
+            <div class="sidebar-header p-4">
+                <h3 class="fw-bold text-primary">Tournois Manager</h3>
+            </div>
+            <div class="sidebar-menu p-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a href="{{ path('app_tournois_index') }}" class="nav-link active bg-light rounded">
+                            <i class="fas fa-home me-3"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ path('app_tournois_calendar') }}" class="nav-link">
+                            <i class="fas fa-calendar-alt me-3"></i> Events
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ path('app_performanceequipe_index')}}" class="nav-link">
+                            <i class="fas fa-users me-3"></i> Teams
+                        </a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a href="{{ path('app_performanceequipe_chart')}}" class="nav-link">
+                            <i class="fas fa-cog me-3"></i> Settings
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        {% endblock %}
     <section class="panel">
         <header class="panel-heading">
             <h2 class="panel-title">Edit Tournoi</h2>
@@ -59,13 +145,7 @@
 
             <hr>
 
-            <div class="form-group">
-                <div class="col-md-6 col-md-offset-3">
-                    <h4>Delete this Tournoi</h4>
-                    {{ include('tournois/_delete_form.html.twig') }}
-                </div>
-            </div>
-        </div>
+           
     </section>
 {% endblock %}
 

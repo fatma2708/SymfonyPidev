@@ -33,6 +33,7 @@ final class TournoisController extends AbstractController
             'tournois' => $tournois,
         ]);
     }
+   
 
     #[Route('/new', name: 'app_tournois_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -136,6 +137,13 @@ public function loadCalendarEvents(
 
     return new JsonResponse($events);
 }
+#[Route('/{id}', name: 'app_tournois_show', methods: ['GET'])]
+public function show(Tournois $tournoi): Response
+{
+return $this->render('tournois/show.html.twig', [
+    'tournoi' => $tournoi,
+]);
+}
 #[Route('/cards', name: 'tournois_cards', methods: ['GET'])]
 public function cards(SessionInterface $session, TournoisRepository $tournoisRepository): Response
 {
@@ -147,6 +155,7 @@ public function cards(SessionInterface $session, TournoisRepository $tournoisRep
         'favorites' => $favorites,
     ]);
 }
+
 
     
 }
