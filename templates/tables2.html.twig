@@ -69,7 +69,7 @@
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
                         <a href="{{ path('app_tournois_index') }}" class="nav-link active bg-light rounded">
-                            <i class="fas fa-home me-3"></i> Dashboard
+                            <i class="fas fa-home me-3"></i> Tournois
                         </a>
                     </li>
                     <li class="nav-item mb-2">
@@ -79,12 +79,12 @@
                     </li>
                     <li class="nav-item mb-2">
                         <a href="{{ path('app_performanceequipe_index')}}" class="nav-link">
-                            <i class="fas fa-users me-3"></i> Teams
+                            <i class="fas fa-users me-3"></i> Performanceequipe
                         </a>
                     </li>
                     <li class="nav-item mb-2">
                         <a href="{{ path('app_performanceequipe_chart')}}" class="nav-link">
-                            <i class="fas fa-cog me-3"></i> Settings
+                            <i class="fas fa-cog me-3"></i> performance charts
                         </a>
                     </li>
                 </ul>
@@ -122,7 +122,7 @@
             <div class="container-fluid">
                 <div class="row mb-4">
                     <div class="col">
-                        <h2 class="fw-bold">Tournois List</h2>
+                        <h2 class="fw-bold">Performance equipe</h2>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ path('app_tournois_index') }}">Home</a></li>
@@ -136,6 +136,10 @@
                         </a>
                     </div>
                 </div>
+                <div class="mb-4">
+    <input type="text" id="searchPerformance" class="form-control" placeholder="Search Performance...">
+</div>
+
 
                 <div class="card">
                     <div class="card-body">
@@ -184,6 +188,9 @@
                             {% endfor %}
                             </tbody>
                         </table>
+                   <div class="d-flex justify-content-center">
+    <ul class="pagination"></ul>
+</div>
                     </div>
                 </div>
             </div>
@@ -200,25 +207,76 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.4/datatables.min.js"></script>
     <!-- Custom Script -->
     <script>
-        $(document).ready(function() {
-            // Toggle sidebar on mobile
-            $('#sidebarToggle').click(function() {
-                $('.sidebar').toggleClass('active');
-                $('.main-content').toggleClass('active');
-            });
+    $(document).ready(function () {
+        function loadPerformance(search = '', page = 1) {
+            $.ajax({
+                url: '{{ path("app_performanceequipe_search") }}',
+                method: 'GET',
+                data: { search: search, page: page },
+                success: function (response) {
+                    let rows = '';
+                    response.data.forEach(function (performance) {
+                        rows += `
+                            <tr>
+                                <td>${performance.equipe}</td>
+                                <td>${performance.tournoi}</td>
+                                <td>${performance.victoires}</td>
+                                <td>${performance.pertes}</td>
+                                <td>${performance.rang}</td>
+                                <td>
+                                    <a href="{{ path('app_performanceequipe_show', {'id': '__ID__'}) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="{{ path('app_performanceequipe_edit', {'id': '__ID__'}) }}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <form action="{{ path('app_performanceequipe_delete', {'id': '__ID__'}) }}" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this item?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ '__ID__') }}">
+                                        <button type="submit" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        `.replace(/__ID__/g, performance.id);
+                    });
+                    $('#tournoisTable tbody').html(rows);
 
-            // Initialize DataTable
-            $('#tournoisTable').DataTable({
-                responsive: true,
-                language: {
-                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json'
+                    // Update pagination controls
+                    let paginationControls = '';
+                    for (let i = 1; i <= response.pagination.totalPages; i++) {
+                        paginationControls += `
+                            <li class="page-item ${i === response.pagination.currentPage ? 'active' : ''}">
+                                <a class="page-link" href="#" data-page="${i}">${i}</a>
+                            </li>
+                        `;
+                    }
+                    $('.pagination').html(paginationControls);
                 },
-                columnDefs: [
-                    { orderable: false, targets: 5 }
-                ]
+                error: function () {
+                    alert('Failed to load data. Please try again.');
+                }
             });
+        }
+
+        // Initial load
+        loadPerformance();
+
+        // Search functionality
+        $('#searchPerformance').on('input', function () {
+            const search = $(this).val();
+            loadPerformance(search);
         });
-    </script>
+
+        // Handle pagination click
+        $(document).on('click', '.pagination a', function (e) {
+            e.preventDefault();
+            const page = $(this).data('page');
+            const search = $('#searchPerformance').val();
+            loadPerformance(search, page);
+        });
+    });
+</script>
     {% endblock %}
 </body>
 </html>

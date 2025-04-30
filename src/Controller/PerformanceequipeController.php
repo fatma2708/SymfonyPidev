@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controller;
-
+use Knp\Component\Pager\PaginatorInterface;
 use App\Entity\Performanceequipe;
 use App\Form\PerformanceequipeType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use App\Repository\PerformanceequipeRepository;
 
@@ -16,16 +17,23 @@ use App\Repository\PerformanceequipeRepository;
 final class PerformanceequipeController extends AbstractController
 {
     #[Route(name: 'app_performanceequipe_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
-    {
-        $performanceequipes = $entityManager
-            ->getRepository(Performanceequipe::class)
-            ->findAll();
+public function index(
+    PerformanceequipeRepository $repository,
+    PaginatorInterface $paginator,
+    Request $request
+): Response {
+    $query = $repository->createQueryBuilder('p')->getQuery();
+    
+    $performanceequipes = $paginator->paginate(
+        $query,
+        $request->query->getInt('page', 1),
+        $request->query->getInt('per_page', 10) // Default to 10 items
+    );
 
-        return $this->render('performanceequipe/index.html.twig', [
-            'performanceequipes' => $performanceequipes,
-        ]);
-    }
+    return $this->render('performanceequipe/index.html.twig', [
+        'performanceequipes' => $performanceequipes,
+    ]);
+}
 
     #[Route('/new', name: 'app_performanceequipe_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -86,6 +94,45 @@ public function chart(PerformanceequipeRepository $repository): Response
         'rawData' => $rawData
     ]);
 }
+#[Route('/search', name: 'app_performanceequipe_search', methods: ['GET'])]
+public function search(Request $request, PerformanceequipeRepository $repository, PaginatorInterface $paginator): JsonResponse
+{
+    $searchTerm = $request->query->get('search', '');
+    $queryBuilder = $repository->createQueryBuilder('p')
+        ->join('p.equipe', 'e')
+        ->join('p.tournois', 't')
+        ->where('e.nom LIKE :searchTerm OR t.nom LIKE :searchTerm')
+        ->setParameter('searchTerm', '%' . $searchTerm . '%');
+
+    $pagination = $paginator->paginate(
+        $queryBuilder,
+        $request->query->getInt('page', 1),
+        5 // Items per page
+    );
+
+    $data = [];
+    foreach ($pagination as $performanceequipe) {
+        $data[] = [
+            'id' => $performanceequipe->getId(),
+            'equipe' => $performanceequipe->getEquipe()->getNom(),
+            'tournoi' => $performanceequipe->getTournois()->getNom(),
+            'victoires' => $performanceequipe->getVictoires(),
+            'pertes' => $performanceequipe->getPertes(),
+            'rang' => $performanceequipe->getRang(),
+        ];
+    }
+
+    return new JsonResponse([
+        'data' => $data,
+        'pagination' => [
+            'currentPage' => $pagination->getCurrentPageNumber(),
+            'totalPages' => $pagination->getPageCount(), // Correct method to get total pages
+
+            
+        ],
+    ]);
+}
+
 
     #[Route('/{id}', name: 'app_performanceequipe_show', methods: ['GET'])]
     public function show(Performanceequipe $performanceequipe): Response
@@ -112,7 +159,7 @@ public function chart(PerformanceequipeRepository $repository): Response
             'form' => $form,
         ]);
     }
-   
+  
 
     #[Route('/{id}', name: 'app_performanceequipe_delete', methods: ['POST'])]
     public function delete(Request $request, Performanceequipe $performanceequipe, EntityManagerInterface $entityManager): Response
@@ -124,5 +171,6 @@ public function chart(PerformanceequipeRepository $repository): Response
 
         return $this->redirectToRoute('app_performanceequipe_index', [], Response::HTTP_SEE_OTHER);
     }
+    
     
 }

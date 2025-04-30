@@ -63,38 +63,7 @@
 
 {% block body %}
 <div class="wrapper">
-        {% block sidebar %}
-        <!-- Sidebar -->
-        <nav class="sidebar bg-white">
-            <div class="sidebar-header p-4">
-                <h3 class="fw-bold text-primary">Tournois Manager</h3>
-            </div>
-            <div class="sidebar-menu p-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item mb-2">
-                        <a href="{{ path('app_tournois_index') }}" class="nav-link active bg-light rounded">
-                            <i class="fas fa-home me-3"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="{{ path('app_tournois_calendar') }}" class="nav-link">
-                            <i class="fas fa-calendar-alt me-3"></i> Events
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="{{ path('app_performanceequipe_index')}}" class="nav-link">
-                            <i class="fas fa-users me-3"></i> Teams
-                        </a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a href="{{ path('app_performanceequipe_chart')}}" class="nav-link">
-                            <i class="fas fa-cog me-3"></i> Settings
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        {% endblock %}
+      
     <section class="panel">
         <header class="panel-heading">
             <h2 class="panel-title">Edit Tournoi</h2>

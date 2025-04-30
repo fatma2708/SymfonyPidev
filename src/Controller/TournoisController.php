@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/tournois')]
 final class TournoisController extends AbstractController
@@ -25,15 +26,23 @@ final class TournoisController extends AbstractController
     }
 
     #[Route(name: 'app_tournois_index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager): Response
-    {
-        $tournois = $entityManager->getRepository(Tournois::class)->findAll();
+public function index(
+    TournoisRepository $repository,
+    PaginatorInterface $paginator,
+    Request $request
+): Response {
+    $query = $repository->createQueryBuilder('t')->getQuery();
 
-        return $this->render('tournois/index.html.twig', [
-            'tournois' => $tournois,
-        ]);
-    }
-   
+    $tournois = $paginator->paginate(
+        $query,
+        $request->query->getInt('page', 1), // Current page number
+        5 // Items per page
+    );
+
+    return $this->render('tournois/index.html.twig', [
+        'tournois' => $tournois,
+    ]);
+}  
 
     #[Route('/new', name: 'app_tournois_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -41,7 +50,6 @@ final class TournoisController extends AbstractController
         $tournoi = new Tournois();
         $form = $this->createForm(TournoisType::class, $tournoi);
         $form->handleRequest($request);
-
         if ($form->isSubmitted()) {
             $errors = $this->validator->validate($tournoi);
 
@@ -137,13 +145,7 @@ public function loadCalendarEvents(
 
     return new JsonResponse($events);
 }
-#[Route('/{id}', name: 'app_tournois_show', methods: ['GET'])]
-public function show(Tournois $tournoi): Response
-{
-return $this->render('tournois/show.html.twig', [
-    'tournoi' => $tournoi,
-]);
-}
+
 #[Route('/cards', name: 'tournois_cards', methods: ['GET'])]
 public function cards(SessionInterface $session, TournoisRepository $tournoisRepository): Response
 {
@@ -154,6 +156,47 @@ public function cards(SessionInterface $session, TournoisRepository $tournoisRep
         'tournois' => $tournois,
         'favorites' => $favorites,
     ]);
+}
+#[Route('/search', name: 'app_tournois_search', methods: ['GET'])]
+public function search(Request $request, TournoisRepository $repository, PaginatorInterface $paginator): JsonResponse
+{
+    $searchTerm = $request->query->get('search', '');
+    $queryBuilder = $repository->createQueryBuilder('t')
+        ->where('t.nom LIKE :searchTerm OR t.sport LIKE :searchTerm OR t.adresse LIKE :searchTerm')
+        ->setParameter('searchTerm', '%' . $searchTerm . '%');
+
+    $pagination = $paginator->paginate(
+        $queryBuilder,
+        $request->query->getInt('page', 1), // Current page number
+        5 // Items per page
+    );
+
+    $data = [];
+    foreach ($pagination as $tournoi) {
+        $data[] = [
+            'id' => $tournoi->getId(),
+            'nom' => $tournoi->getNom(),
+            'sport' => $tournoi->getSport(),
+            'dateDebut' => $tournoi->getDateDebut() ? $tournoi->getDateDebut()->format('Y-m-d H:i') : '',
+            'dateFin' => $tournoi->getDateFin() ? $tournoi->getDateFin()->format('Y-m-d H:i') : '',
+            'adresse' => $tournoi->getAdresse(),
+        ];
+    }
+
+    return new JsonResponse([
+        'data' => $data,
+        'pagination' => [
+            'currentPage' => $pagination->getCurrentPageNumber(),
+            'totalPages' => $pagination->getPaginationData()['pageCount'],
+        ],
+    ]);
+}
+#[Route('/{id}', name: 'app_tournois_show', methods: ['GET'])]
+public function show(Tournois $tournoi): Response
+{
+return $this->render('tournois/show.html.twig', [
+    'tournoi' => $tournoi,
+]);
 }
 
 
