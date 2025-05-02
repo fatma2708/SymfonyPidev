@@ -1,0 +1,49 @@
+{# templates/emails/blessure_notification.html.twig #}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notification de Blessure</title>
+</head>
+<body>
+    <h1>Bonjour {{ blessure.athlete.name }},</h1>
+
+    <p>Nous avons enregistré une nouvelle blessure dans votre dossier médical. Voici les détails :</p>
+
+    <ul>
+        <li><strong>Date de la blessure :</strong> {{ blessure.dateBlessure|date('d/m/Y') }}</li>
+        <li><strong>Type de blessure :</strong> 
+            <span class="badge 
+                {% if blessure.type == 'Légère' %}bg-info text-dark
+                {% elseif blessure.type == 'Grave' %}bg-danger
+                {% else %}bg-secondary{% endif %}">
+                {% if blessure.type == 'Légère' %}
+                    <i class="fas fa-exclamation-circle me-1"></i>
+                {% elseif blessure.type == 'Grave' %}
+                    <i class="fas fa-skull-crossbones me-1"></i>
+                {% else %}
+                    <i class="fas fa-question-circle me-1"></i>
+                {% endif %}
+                {{ blessure.type }}
+            </span>
+        </li>
+        <li><strong>Description :</strong> {{ blessure.description }}</li>
+        <li><strong>Date de retour prévue :</strong> 
+            {% if blessure.dateRetour %}
+                <span class="badge bg-success">
+                    <i class="fas fa-check-circle me-1"></i>{{ blessure.dateRetour|date('d/m/Y H:i') }}
+                </span>
+            {% else %}
+                <span class="badge bg-warning text-dark">
+                    <i class="fas fa-hourglass-half me-1"></i>En cours
+                </span>
+            {% endif %}
+        </li>
+    </ul>
+
+    <p>Veuillez consulter votre médecin ou prendre rendez-vous pour un suivi.</p>
+
+    <p>Cordialement,</p>
+    <p>L'équipe de GYM PRO</p>
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Athlete{% endblock %}
+
+{% block body %}
+    <h1>Create new Athlete</h1>
+
+    {{ include('athlete/_form.html.twig') }}
+
+    <a href="{{ path('app_athlete_index') }}">back to list</a>
+{% endblock %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const athleteSelect = document.querySelector('#blessure_athlete');
+    const dossierSelect = document.querySelector('#blessure_dossierMedicals');
+
+    athleteSelect.addEventListener('change', function () {
+        const athleteId = this.value;
+        fetch(`/api/athlete/${athleteId}/dossier`)
+            .then(response => response.json())
+            .then(data => {
+                dossierSelect.innerHTML = ''; // on vide d'abord
+                data.forEach(dossier => {
+                    const option = document.createElement('option');
+                    option.value = dossier.id;
+                    option.text = 'Dossier #' + dossier.id; // adapte selon tes champs
+                    option.selected = true; // auto-sélection
+                    dossierSelect.appendChild(option);
+                });
+            });
+    });
+});
+</script>

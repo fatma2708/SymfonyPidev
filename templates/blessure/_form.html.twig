@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_row(form.dateBlessure) }}
+    {{ form_row(form.dateRetour) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.type) }}
+    {{ form_row(form.athlete) }}
+
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

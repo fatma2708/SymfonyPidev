@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Dossier Médical - {{ dossier_medical.athlete.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: #555;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+            font-weight: bold;
+        }
+        .badge {
+            padding: 0.2em 0.6em;
+            border-radius: 10px;
+            font-size: 0.8em;
+        }
+        .badge-success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .badge-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .badge-secondary {
+            background-color: #e2e3e5;
+            color: #383d41;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .text-muted {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dossier Médical</h1>
+
+    <!-- Informations de l'Athlète -->
+    <div class="section-title">Informations de l'Athlète</div>
+    <table>
+        <tr>
+            <th>Nom</th>
+            <td>{{ dossier_medical.athlete.name }}</td>
+        </tr>
+        <tr>
+            <th>Allergies</th>
+            <td>{{ dossier_medical.allergies ?: '-' }}</td>
+        </tr>
+        <tr>
+            <th>Dernier Check-up</th>
+            <td>{{ dossier_medical.dernierCheckup ? dossier_medical.dernierCheckup|date('d/m/Y H:i') : '-' }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>{{ dossier_medical.description ?: '-' }}</td>
+        </tr>
+        <tr>
+            <th>État de l'Athlète</th>
+            <td>
+                <span class="badge 
+                    {% if dossier_medical.etatAthlete == 'Sain' %}badge-success
+                    {% elseif dossier_medical.etatAthlete == 'Blessé' %}badge-danger
+                    {% else %}badge-secondary{% endif %}">
+                    {{ dossier_medical.etatAthlete }}
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <th>Vaccinations</th>
+            <td>{{ dossier_medical.vaccinations ?: '-' }}</td>
+        </tr>
+    </table>
+
+    
+    <!-- Autres Informations (Optionnel) -->
+    <div class="section-title">Autres Informations</div>
+    <p>
+        Ce document a été généré automatiquement par l'application Medical Manager.
+        Pour toute question, veuillez contacter votre administrateur.
+    </p>
+</body>
+</html>

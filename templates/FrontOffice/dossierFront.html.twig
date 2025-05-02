@@ -1,0 +1,201 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des Dossiers Médicaux{% endblock %}
+
+{% block stylesheets %}
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            transition: all 0.3s;
+            z-index: 1000;
+            background: #ffffff;
+            box-shadow: 0 0 35px 0 rgba(49,57,66,.1);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                margin-left: -280px;
+            }
+            .main-content {
+                margin-left: 0;
+            }
+            .sidebar.active {
+                margin-left: 0;
+            }
+        }
+
+        .navbar {
+            padding: 15px 20px;
+            background: #fff !important;
+            box-shadow: 0 1px 15px rgba(0,0,0,.04);
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 0 35px 0 rgba(49,57,66,.1);
+            border-radius: 12px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .badge {
+            font-size: 0.85em;
+            padding: 0.35em 0.65em;
+        }
+
+        .btn-sm {
+            border-radius: 50px;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+    <!-- Sidebar -->
+    <nav class="sidebar bg-white">
+        <div class="sidebar-header p-4">
+            <h3 class="fw-bold text-primary">GYM PRO</h3>
+        </div>
+        <div class="sidebar-menu p-3">
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2">
+                    <a href="{{ path('app_blessure_index_front') }}" class="nav-link active bg-light rounded">
+                        <i class="fas fa-user-injured me-3"></i> Blessures
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a href="{{ path('app_blessure_index') }}" class="nav-link active bg-light rounded">
+                        <i class="fas fa-user-injured me-3"></i> Admin
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <!-- Header -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <button class="btn btn-link d-lg-none" type="button" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="d-flex align-items-center ms-auto">
+                    <div class="dropdown">
+                        <a class="btn btn-link" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="fas fa-user-circle fa-xl"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="container-fluid">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="fw-bold"> Dossiers Médicaux</h2>
+                </div>
+                
+            </div>
+
+            <!-- Cards List -->
+            {% if dossier_medicals|length > 0 %}
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                {% for dossier_medical in dossier_medicals %}
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ dossier_medical.athlete.name }}</h5>
+                            <p class="card-text">
+                                <strong>Allergies :</strong> {{ dossier_medical.allergies }}<br>
+                                <strong>Dernier Check-up :</strong> 
+                                {{ dossier_medical.dernierCheckup ? dossier_medical.dernierCheckup|date('d/m/Y') : '-' }}<br>
+                                <strong>Description :</strong> {{ dossier_medical.description}}<br>
+                                <strong>État :</strong>
+                                <span class="badge 
+                                    {% if dossier_medical.etatAthlete == 'Sain' %}bg-success
+                                    {% elseif dossier_medical.etatAthlete == 'Blessé' %}bg-danger
+                                    {% else %}bg-secondary{% endif %}">
+                                    {{ dossier_medical.etatAthlete }}
+                                </span><br>
+                                <strong>Vaccinations :</strong> {{ dossier_medical.vaccinations }}
+                            </p>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div class="btn-group" role="group">
+                                <a href="{{ path('app_dossier_medical_show', {'id': dossier_medical.id}) }}" 
+                                   class="btn btn-sm btn-light border me-1 rounded-circle shadow-sm" 
+                                   data-bs-toggle="tooltip" 
+                                   title="Voir détails">
+                                    <i class="fas fa-eye text-primary"></i>
+                                </a>
+                                <a href="{{ path('app_dossier_medical_edit', {'id': dossier_medical.id}) }}" 
+                                   class="btn btn-sm btn-light border rounded-circle shadow-sm" 
+                                   data-bs-toggle="tooltip" 
+                                   title="Modifier">
+                                    <i class="fas fa-edit text-secondary"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="row">
+                <div class="col text-center py-4">
+                    <div class="d-flex flex-column align-items-center">
+                        <i class="fas fa-folder-open text-muted fa-3x mb-2"></i>
+                        <h5 class="text-muted">Aucun dossier médical trouvé</h5>
+                        <p class="text-muted">Cliquez sur le bouton "Nouveau Dossier Médical" pour commencer</p>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle sidebar on mobile
+            $('#sidebarToggle').click(function() {
+                $('.sidebar').toggleClass('active');
+                $('.main-content').toggleClass('active');
+            });
+
+            // Tooltips
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
+        });
+    </script>
+{% endblock %}
