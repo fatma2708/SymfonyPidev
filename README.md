@@ -61,6 +61,10 @@ Ce projet est développé dans le cadre du cursus PIDEV 3A à l'École d'Ingéni
    ```
    symfony server:start
    ```
+## Mots clés
+Symfony, PHP, Gestion de projet, Doctrine ORM, Authentification, Bootstrap, ReCAPTCHA, Twilio, Email, Notification SMS, CRUD, Base de données MySQL, Application Web, Template Twig, Composer, Responsive Design, PIDEV, Esprit, Temps réel, Backend, Frontend
+
+
 
 ## Remerciements
-Ce projet a été développé à l'École d'Ingénieurs Esprit dans le cadre du programme PIDEV. Nous remercions particulièrement nos instructeurs et mentors pour leur accompagnement tout au long du développement.
+Ce projet a été développé à Esprit School of Engineering dans le cadre du module PIDEV. Nous remercions particulièrement nos instructeurs et mentors pour leur accompagnement tout au long du projet.
