@@ -3,6 +3,9 @@
 ## Aperçu
 Ce projet est développé dans le cadre du cursus PIDEV 3A à l'École d'Ingénieurs Esprit. C'est une application web complète construite avec Symfony 6.4, mettant l'accent sur une gestion robuste des utilisateurs et des fonctionnalités de communication en temps réel.
 
+## Mots clés
+Symfony, PHP, Gestion de projet, Doctrine ORM, Authentification, Bootstrap, ReCAPTCHA, Twilio, Email, Notification SMS, CRUD, Base de données MySQL, Application Web, Template Twig, Composer, Responsive Design, PIDEV, Esprit, Temps réel, Backend, Frontend
+
 ## Fonctionnalités
 - Système d'authentification des utilisateurs
 - Intégration des notifications SMS (Twilio)
@@ -61,10 +64,6 @@ Ce projet est développé dans le cadre du cursus PIDEV 3A à l'École d'Ingéni
    ```
    symfony server:start
    ```
-## Mots clés
-Symfony, PHP, Gestion de projet, Doctrine ORM, Authentification, Bootstrap, ReCAPTCHA, Twilio, Email, Notification SMS, CRUD, Base de données MySQL, Application Web, Template Twig, Composer, Responsive Design, PIDEV, Esprit, Temps réel, Backend, Frontend
-
-
 
 ## Remerciements
 Ce projet a été développé à Esprit School of Engineering dans le cadre du module PIDEV. Nous remercions particulièrement nos instructeurs et mentors pour leur accompagnement tout au long du projet.
